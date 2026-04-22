@@ -5,9 +5,11 @@ set -euo pipefail
 #   bash scripts/remote/install_sglang.sh
 #
 # Optional env:
-#   VENV_DIR=~/venvs/sglang-qwen3
+#   DATA_ROOT=/root/autodl-tmp
+#   VENV_DIR=/root/autodl-tmp/venvs/sglang-qwen3
 
-VENV_DIR="${VENV_DIR:-$HOME/venvs/sglang-qwen3}"
+DATA_ROOT="${DATA_ROOT:-/root/autodl-tmp}"
+VENV_DIR="${VENV_DIR:-$DATA_ROOT/venvs/sglang-qwen3}"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 
 echo "[1/5] Checking Python..."
@@ -17,6 +19,7 @@ if ! command -v "$PYTHON_BIN" >/dev/null 2>&1; then
 fi
 
 echo "[2/5] Creating virtual environment: $VENV_DIR"
+mkdir -p "$(dirname "$VENV_DIR")"
 "$PYTHON_BIN" -m venv "$VENV_DIR"
 
 echo "[3/5] Activating virtual environment"
